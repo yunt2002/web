@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>윤태훈 | 개발자 포트폴리오</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* 다크 모드 & 폰트 기본 설정 */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Pretendard', sans-serif; /* 웹 폰트 적용 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* 2. 마우스 호버 애니메이션이 적용된 섹션 */
+        section {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 속성 */
+        }
+
+        section:hover {
+            transform: translateY(-5px); /* 마우스 올리면 살짝 위로 뜸 */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            color: #4facfe;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        /* 3. 프로필 영역 (사진 + 텍스트) 레이아웃 */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%; /* 동그란 이미지 */
+            object-fit: cover;
+            border: 3px solid #4facfe;
+        }
+
+        .profile-info h1 {
+            color: #ffffff;
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+        }
+
+        .profile-info p {
+            font-size: 1.1em;
+            color: #b0b0b0;
+            margin: 5px 0;
+        }
+
+        .profile-info i {
+            width: 20px;
+            color: #4facfe; /* 아이콘 색상 */
+        }
+
+        /* 리스트 스타일 */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #2a2a2a;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4facfe;
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #333333; /* 리스트에도 살짝 밝아지는 호버 효과 */
+        }
+
+        /* 4. 기술 스택 '뱃지(Badge)' 스타일 */
+        .badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: #4facfe;
+            color: #121212;
+            padding: 6px 14px;
+            border-radius: 20px; /* 둥근 캡슐 모양 */
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+
+        .date {
+            font-size: 0.9em;
+            color: #888;
+            display: block;
+            margin-top: 8px;
+        }
+        
+        .project-title {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="profile-header">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="윤태훈 프로필 사진" class="profile-img">
+            
+            <div class="profile-info">
+                <h1>윤태훈</h1>
+                <p><i class="fa-solid fa-graduation-cap"></i> 컴퓨터공학과 예비 개발자</p>
+                <p><i class="fa-solid fa-phone"></i> 010-3339-4685</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-code"></i> Tech Stack</h2>
+            <div class="badges">
+                <span class="badge">Java</span>
+                <span class="badge">Python</span>
+                <span class="badge">Vercel</span>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-laptop-code"></i> Projects</h2>
+            <ul>
+                <li>
+                    <div class="project-title"><strong>클로토의 실 (졸업 작품)</strong></div>
+                    <p style="margin: 5px 0; color: #ccc;">역할: 백엔드 개발 및 AI 연동 담당</p>
+                    <span class="date">AI를 활용한 타로 카드 해석 서비스 구현</span>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-briefcase"></i> Experience</h2>
+            <ul>
+                <li>
+                    <strong style="color: #fff; font-size: 1.1em;">네오바이오텍 인턴십</strong>
+                    <span class="date">2025.12 ~ 2026.02</span>
+                </li>
+                <li>
+                    <strong style="color: #fff; font-size: 1.1em;">원주종합사회복지관 인턴십</strong>
+                    <span class="date">2025.06.30 ~ 2025.08.20</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+</body>
+</html>
