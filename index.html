@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="예비 개발자 윤태훈의 포트폴리오 웹사이트입니다.">
     <title>윤태훈 | Software Engineer</title>
     
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 다크 테마 컬러 정의 --- */
+        /* --- 다크 테마 및 CSS 변수 정의 --- */
         :root {
             --bg-gradient: linear-gradient(-45deg, #000000, #121212, #0a0a0a, #1a1a1a);
             --card-bg: rgba(30, 30, 30, 0.4); 
@@ -20,6 +21,9 @@
             --accent-glow: rgba(56, 189, 248, 0.3);
         }
 
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; } 
+        
         body {
             margin: 0; padding: 0; 
             font-family: 'Pretendard', sans-serif;
@@ -28,7 +32,15 @@
             background-size: 400% 400%;
             animation: gradientBG 20s ease infinite; 
             min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
+            
+            /* 초기 상태: 스크롤 막기 */
+            overflow: hidden; 
+        }
+
+        /* 인트로를 통과하면 자바스크립트로 이 클래스를 붙여 스크롤 허용 */
+        body.unlocked {
+            overflow-y: auto; 
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -37,8 +49,124 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* --- 🌟 분리된 타이틀(인트로) 화면 (커튼 효과) --- */
+        #hero {
+            position: fixed; 
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 100; 
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+        }
+
+        #hero.slide-up {
+            transform: translateY(-100%);
+            pointer-events: none; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .hero-title {
+            font-size: 6vw; 
+            font-weight: 900;
+            letter-spacing: 15px;
+            margin: 0;
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--text-muted);
+            font-size: 1.5em;
+            margin-top: 20px;
+            letter-spacing: 3px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            color: var(--text-muted);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 800px) {
+            .hero-title { font-size: 12vw; letter-spacing: 5px; }
+            .hero-subtitle { font-size: 1em; }
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.2)); }
+            to { filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.6)); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        /* --- 🔗 가로 파이프라인 네비게이션 --- */
+        .cyber-nav {
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cyber-btn {
+            background: rgba(17, 25, 40, 0.6);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 14px 26px;
+            border-radius: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.1);
+        }
+
+        .cyber-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: scale(1.08); 
+        }
+
+        .cyber-line {
+            width: 40px; 
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 800px) {
+            .cyber-nav { flex-direction: column; margin-top: 40px; }
+            .cyber-line { width: 2px; height: 25px; }
+        }
+
+        /* --- 벤토 박스 메인 컨테이너 --- */
         .container {
-            max-width: 1000px; width: 90%; margin: 40px auto 100px auto; 
+            max-width: 1000px; width: 90%; 
+            margin: 60px auto 120px auto; 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             gap: 20px;
@@ -51,12 +179,30 @@
             border-radius: 28px; padding: 35px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex; flex-direction: column; justify-content: center;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .bento-card.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .bento-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
             border-color: rgba(56, 189, 248, 0.5); 
+        }
+
+        @keyframes highlightPulse {
+            0% { border-color: var(--accent); box-shadow: 0 0 50px var(--accent-glow); transform: scale(1.02); }
+            50% { border-color: var(--accent); box-shadow: 0 0 30px var(--accent-glow); transform: scale(1.02); }
+            100% { border-color: var(--card-border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); transform: scale(1); }
+        }
+        .highlight-target {
+            animation: highlightPulse 2s ease-out;
+            z-index: 5;
+            position: relative;
         }
 
         .card-profile { grid-column: span 3; display: flex; flex-direction: row; align-items: center; gap: 40px; }
@@ -75,127 +221,152 @@
         .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
         .profile-info h1 { font-size: 2.8em; margin: 0 0 10px 0; font-weight: 800; }
         .profile-info h3 { color: var(--accent); margin: 0 0 15px 0; font-family: 'Courier New', Courier, monospace; letter-spacing: -0.5px; }
-        
         .contact-info { display: flex; gap: 20px; color: var(--text-muted); flex-wrap: wrap; }
         @media (max-width: 800px) { .contact-info { justify-content: center; } }
         .contact-info p { margin: 0; display: flex; align-items: center; gap: 8px; }
         .contact-info i { color: var(--accent); }
-
         .section-title { font-size: 1.1em; color: var(--text-muted); margin-top: 0; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .section-title i { color: var(--accent); }
-
         .item-title { font-size: 1.4em; font-weight: 700; margin-bottom: 8px; color: #fff; }
         .item-role { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 5px 12px; border-radius: 8px; font-size: 0.85em; margin-bottom: 12px; font-weight: 600; }
         .item-desc { color: var(--text-muted); margin-bottom: 15px; line-height: 1.6; }
         .item-date { font-size: 0.9em; color: rgba(255,255,255,0.4); font-family: 'Courier New', Courier, monospace; }
-
         .tech-list { display: flex; flex-direction: column; gap: 15px; }
         .tech-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 15px 20px; border-radius: 14px; transition: background 0.2s; }
         .tech-item:hover { background: rgba(255,255,255,0.08); }
         .tech-item i, .tech-item svg { font-size: 1.5em; color: var(--accent); width: 24px; display: flex; justify-content: center; }
         .tech-item span { font-weight: 600; font-size: 1.1em; letter-spacing: 0.5px; }
-
         .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 600px) { .exp-grid { grid-template-columns: 1fr; } }
         .exp-card { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* --- 🤖 심플 챗봇 UI 스타일 --- */
+        /* --- 🤖 심플 챗봇 UI & 🏠 홈 버튼 스타일 --- */
         #chatbot-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
-
-        #chat-fab {
-            background: var(--accent); color: #000;
-            border: none; width: 60px; height: 60px; border-radius: 50%;
-            font-size: 1.6em; cursor: pointer;
-            box-shadow: 0 0 20px var(--accent-glow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex; align-items: center; justify-content: center;
-        }
+        
+        #chat-fab { background: var(--accent); color: #000; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 1.6em; cursor: pointer; box-shadow: 0 0 20px var(--accent-glow); transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; align-items: center; justify-content: center; }
         #chat-fab:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--accent); }
-
+        
         .pulse { animation: pulseAnim 2s infinite; }
-        @keyframes pulseAnim {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        #chat-window {
-            width: 360px; height: 520px;
-            background: rgba(17, 25, 40, 0.85);backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            position: absolute; bottom: 80px; right: 0;
-            display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-            transform: scale(0); opacity: 0; transform-origin: bottom right; 
-        }
-        #chat-window.open { transform: scale(1); opacity: 1; }
-
-        .chat-header {
-            background: rgba(255,255,255,0.03); padding: 15px 20px;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex; justify-content: space-between; align-items: center;
-            font-weight: 700; color: #fff;
-        }
+        @keyframes pulseAnim { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
+        
+        #chat-window { width: 360px; height: 520px; background: rgba(17, 25, 40, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; position: absolute; bottom: 80px; right: 0; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0); opacity: 0; transform-origin: bottom right; visibility: hidden; }
+        #chat-window.open { transform: scale(1); opacity: 1; visibility: visible; }
+        .chat-header { background: rgba(255,255,255,0.03); padding: 15px 20px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #fff; }
         .chat-header span { color: var(--accent); font-family: 'Courier New', monospace; }
-        .close-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.5em; cursor: pointer; }
+        .close-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.5em; cursor: pointer; transition: color 0.2s; }
         .close-btn:hover { color: #fff; }
-
         .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
         .chat-body::-webkit-scrollbar { width: 6px; }
         .chat-body::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.2); border-radius: 3px; }
-
-        .message { padding: 12px 16px; border-radius: 12px; max-width: 85%; font-size: 0.95em; line-height: 1.5; }
+        .message { padding: 12px 16px; border-radius: 12px; max-width: 85%; font-size: 0.95em; line-height: 1.5; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .bot-msg { background: rgba(255,255,255,0.05); color: var(--text-secondary); align-self: flex-start; border-top-left-radius: 2px; }
         .user-msg { background: var(--accent); color: #000; align-self: flex-end; border-top-right-radius: 2px; font-weight: 600; }
-
-        /* 하단 퀵 리플라이 영역 (상하 스크롤) */
+        .tarot-result { text-align: center; margin-bottom: 8px; }
+        .tarot-result .icon { font-size: 2.5em; display: block; margin-bottom: 5px; }
+        .tarot-result .name { color: var(--accent); font-weight: 700; font-size: 1.1em; }
+        .tarot-promo { font-size: 0.8em; color: var(--text-muted); border-top: 1px dashed rgba(255,255,255,0.2); margin-top: 10px; padding-top: 10px; }
         .chat-footer { padding: 15px; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); }
-        .quick-replies { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-            max-height: 120px; 
-            overflow-y: auto;  
-            padding-right: 5px; 
-        }
+        .quick-replies { display: flex; flex-direction: column; gap: 8px; max-height: 120px; overflow-y: auto; padding-right: 5px; }
         .quick-replies::-webkit-scrollbar { width: 4px; }
         .quick-replies::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); border-radius: 2px; }
-        
-        .quick-replies button {
-            background: transparent; color: var(--accent); border: 1px solid var(--accent);
-            padding: 10px 14px; border-radius: 10px; font-size: 0.9em; cursor: pointer;
-            transition: all 0.2s ease; 
-            text-align: left; 
-            width: 100%; 
-        }
-        .quick-replies button:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        .reply-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 10px 14px; border-radius: 10px; font-size: 0.9em; cursor: pointer; transition: all 0.2s ease; text-align: left; width: 100%; }
+        .reply-btn:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        .reply-btn.btn-tarot { border-color: #a855f7; color: #c084fc; font-weight: bold; }
+        .reply-btn.btn-tarot:hover { background: rgba(168, 85, 247, 0.1); box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
 
-        @media (max-width: 400px) {
-            #chat-window { width: calc(100vw - 60px); height: 450px; bottom: 80px; }
+        /* ★ 새로 추가된 홈(Home) 버튼 스타일 ★ */
+        #home-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            background: rgba(17, 25, 40, 0.6);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* 초기엔 숨겨둠 */
+            opacity: 0;
+            transform: translateY(40px) scale(0.5);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #home-btn.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        #home-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: scale(1.15);
+        }
+
+        @media (max-width: 400px) { 
+            #chat-window { width: calc(100vw - 60px); height: 450px; bottom: 80px; } 
+            #home-btn { bottom: 20px; left: 20px; width: 45px; height: 45px; }
+            #chat-fab { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 1.4em; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="bento-card card-profile">
+    <header id="hero">
+        <h1 class="hero-title">PORTFOLIO</h1>
+        <p class="hero-subtitle">Yoon Tae-hoon | Software Engineer</p>
+
+        <nav class="cyber-nav">
+            <button class="cyber-btn" onclick="unlockPortfolio('section-edu')">
+                <i class="fa-solid fa-graduation-cap"></i> Education
+            </button>
+            <div class="cyber-line"></div>
+            <button class="cyber-btn" onclick="unlockPortfolio('section-project')">
+                <i class="fa-solid fa-laptop-code"></i> Project
+            </button>
+            <div class="cyber-line"></div>
+            <button class="cyber-btn" onclick="unlockPortfolio('section-tech')">
+                <i class="fa-solid fa-code"></i> Tech Stack
+            </button>
+            <div class="cyber-line"></div>
+            <button class="cyber-btn" onclick="unlockPortfolio('section-exp')">
+                <i class="fa-solid fa-briefcase"></i> Experience
+            </button>
+        </nav>
+        
+        <div class="scroll-hint">Scroll down to explore <i class="fa-solid fa-angles-down"></i></div>
+    </header>
+
+    <main class="container" id="main-content">
+        
+        <article class="bento-card card-profile" id="section-profile">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="윤태훈 프로필 사진" class="profile-img">
             <div class="profile-info">
                 <h1>윤태훈</h1>
                 <h3>&gt; WEAVING AI &amp; BACKEND WITH DILIGENCE_</h3>
                 <div class="contact-info">
-                    <p><i class="fa-solid fa-graduation-cap"></i> 컴퓨터공학과</p>
-                    <p><i class="fa-solid fa-phone"></i> 010-3339-4685</p>
-                    <p><i class="fa-solid fa-envelope"></i> yunt3209@gmail.com</p>
+                    <p><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> 컴퓨터공학과</p>
+                    <p><i class="fa-solid fa-phone" aria-hidden="true"></i> 010-3339-4685</p>
+                    <p><i class="fa-solid fa-envelope" aria-hidden="true"></i> yunt3209@gmail.com</p>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="bento-card card-edu">
+        <article class="bento-card card-edu" id="section-edu">
             <div style="display: flex; align-items: center; gap: 20px;">
                 <div style="background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 14px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fa-solid fa-building-columns" style="font-size: 1.5em; color: var(--accent);"></i>
+                    <i class="fa-solid fa-building-columns" style="font-size: 1.5em; color: var(--accent);" aria-hidden="true"></i>
                 </div>
                 <div>
                     <div class="item-title" style="margin-bottom: 5px;">한라대학교</div>
@@ -203,38 +374,38 @@
                 </div>
             </div>
             <span class="item-date" style="font-size: 1em;">// 2021 ~ 2026</span>
-        </div>
+        </article>
 
-        <div class="bento-card card-project">
-            <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Main Project</h2>
+        <section class="bento-card card-project" id="section-project">
+            <h2 class="section-title"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i> Main Project</h2>
             <div class="item-title">클로토의 실</div>
             <span class="item-role">Backend &amp; AI Integration</span>
             <p class="item-desc">컴퓨터공학과 1년 장기 졸업 작품으로 진행 중인 프로젝트입니다. AI를 적극적으로 활용하여 사용자 맞춤형 타로 카드 해석 서비스를 제공하는 플랫폼을 구축하고 있습니다.</p>
             <span class="item-date">// 2025.12 ~ 2026.02 (Expected)</span>
-        </div>
+        </section>
 
-        <div class="bento-card card-tech">
-            <h2 class="section-title"><i class="fa-solid fa-code"></i> Tech Stack</h2>
+        <section class="bento-card card-tech" id="section-tech">
+            <h2 class="section-title"><i class="fa-solid fa-code" aria-hidden="true"></i> Tech Stack</h2>
             <div class="tech-list">
                 <div class="tech-item">
-                    <i class="fa-brands fa-java"></i>
+                    <i class="fa-brands fa-java" aria-hidden="true"></i>
                     <span>Java</span>
                 </div>
                 <div class="tech-item">
-                    <i class="fa-brands fa-python"></i>
+                    <i class="fa-brands fa-python" aria-hidden="true"></i>
                     <span>Python</span>
                 </div>
                 <div class="tech-item">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
                         <path d="M12 1L24 22H0L12 1Z"/>
                     </svg>
                     <span>Vercel</span>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="bento-card card-exp">
-            <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Experience</h2>
+        <section class="bento-card card-exp" id="section-exp">
+            <h2 class="section-title"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Experience</h2>
             <div class="exp-grid">
                 <div class="exp-card">
                     <div class="item-title">네오바이오텍 인턴십</div>
@@ -247,102 +418,200 @@
                     <span class="item-date" style="display: block; margin-top: 10px;">// 2025.06.30 ~ 2025.08.20</span>
                 </div>
             </div>
-        </div>
-    </div> <div id="chatbot-container">
+        </section>
+    </main>
+
+    <button id="home-btn" onclick="lockPortfolio()" aria-label="타이틀 화면으로 돌아가기">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <aside id="chatbot-container">
         <div id="chat-window" class="hidden">
-            <div class="chat-header">
+            <header class="chat-header">
                 <span>Yunt_Bot v1.0</span>
-                <button onclick="toggleChat()" class="close-btn">&times;</button>
-            </div>
+                <button class="close-btn" id="close-chat-btn" aria-label="채팅창 닫기">&times;</button>
+            </header>
             <div class="chat-body" id="chat-messages">
                 <div class="message bot-msg">안녕하세요! 예비 개발자 윤태훈의 가상 비서입니다. 제게 무엇이든 물어보세요! 🚀</div>
             </div>
-            <div class="chat-footer">
-                <div class="quick-replies">
-                    <button onclick="handleQuickReply('intro')">👋 자기소개</button>
-                    <button onclick="handleQuickReply('tech')">💻 기술 스택</button>
-                    <button onclick="handleQuickReply('project')">🕸️ 클로토의 실</button>
-                    <button onclick="handleQuickReply('teamwork')">🤝 협업 스타일</button>
-                    <button onclick="handleQuickReply('intern')">🏢 인턴 경험</button>
-                    <button onclick="handleQuickReply('goal')">🎯 앞으로의 목표</button>
-                    <button onclick="handleQuickReply('contact')">📬 연락처</button>
+            <footer class="chat-footer">
+                <div class="quick-replies" id="quick-replies-container">
+                    <button class="reply-btn btn-tarot" data-type="tarot">🔮 오늘의 타로 (1장 뽑기)</button>
+                    <button class="reply-btn" data-type="intro">👋 자기소개</button>
+                    <button class="reply-btn" data-type="tech">💻 기술 스택</button>
+                    <button class="reply-btn" data-type="project">🕸️ 클로토의 실</button>
+                    <button class="reply-btn" data-type="teamwork">🤝 협업 스타일</button>
+                    <button class="reply-btn" data-type="intern">🏢 인턴 경험</button>
+                    <button class="reply-btn" data-type="goal">🎯 앞으로의 목표</button>
+                    <button class="reply-btn" data-type="contact">📬 연락처</button>
                 </div>
-            </div>
+            </footer>
         </div>
-        <button id="chat-fab" onclick="toggleChat()">
-            <i class="fa-solid fa-robot pulse"></i>
+        <button id="chat-fab" aria-label="채팅 봇 열기">
+            <i class="fa-solid fa-robot pulse" aria-hidden="true"></i>
         </button>
-    </div>
+    </aside>
 
     <script>
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.classList.toggle('open');
-        }
+        // 새로고침 시 항상 맨 위에서 시작하도록 고정
+        window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
 
-        let isTyping = false;
+        let isUnlocked = false;
+        const homeBtn = document.getElementById('home-btn');
 
-        function handleQuickReply(type) {
-            if (isTyping) return; 
-            
-            const chatMessages = document.getElementById('chat-messages');
-            let userMessage = "";
-            let botResponse = "";
-
-            if (type === 'intro') {
-                userMessage = "태훈님에 대해 짧게 소개해 줘!";
-                botResponse = "성실함을 무기로 끊임없이 배우고 성장하는 예비 개발자 윤태훈입니다. 한라대학교 컴퓨터공학과에서 AI와 백엔드에 매료되어 치열하게 연구하고 있습니다.";
-            } else if (type === 'tech') {
-                userMessage = "주로 다루는 기술은 뭐야?";
-                botResponse = "핵심 기술은 Java와 Python입니다. 이번 졸업 작품에서는 Vercel을 활용해 서버를 성공적으로 구축하고 AI 연동을 구현했습니다.";
-            } else if (type === 'project') {
-                userMessage = "'클로토의 실' 프로젝트가 궁금해.";
-                botResponse = "1년 장기 프로젝트로 진행 중인 'AI 타로 카드 앱'입니다. 저는 여기서 핵심인 서버 구축과 AI 모델 연동을 맡아, 기술로 사용자에게 즐거움을 주는 훈련을 하고 있습니다.";
-            } else if (type === 'teamwork') { // ★ 새로 추가된 질문의 봇 답변
-                userMessage = "팀 프로젝트에서 협업 스타일은 어때?";
-                botResponse = "두 번의 실무 인턴십을 거치며 '원활한 소통'과 '책임감'을 배웠습니다. '클로토의 실' 팀에서도 제가 맡은 백엔드 및 AI 연동 파트의 진행 상황을 투명하게 공유하여 팀에 신뢰를 주는 조율자 역할을 하고 있습니다.";
-            } else if (type === 'intern') {
-                userMessage = "인턴십에서는 어떤 일을 했어?";
-                botResponse = "네오바이오텍 국내물류팀과 원주종합사회복지관 등에서 인턴 및 실습을 진행하며 실무 감각과 책임감을 길렀습니다. 현장 상황을 파악하고 다양한 직군과 협력하는 법을 배운 값진 시간이었습니다.";
-            } else if (type === 'goal') {
-                userMessage = "앞으로의 목표가 뭐야?";
-                botResponse = "단기적으로는 이번 학기에 '정보처리기사' 자격증을 취득해 전공 지식을 탄탄히 다지는 것입니다. 장기적으로는 시스템을 안정적으로 뒷받침하는 신뢰받는 백엔드 엔지니어가 되고 싶습니다!";
-            } else if (type === 'contact') {
-                userMessage = "연락처를 알 수 있을까?";
-                botResponse = "언제든지 아래로 연락해 주세요!<br><br>📞 010-3339-4685<br>✉️ yunt3209@gmail.com";
+        // 🌟 1. 커튼(인트로) 열기 로직
+        function unlockPortfolio(targetSectionId = null) {
+            if (!isUnlocked) {
+                isUnlocked = true;
+                // 타이틀 화면 위로 치우기
+                document.getElementById('hero').classList.add('slide-up');
+                // 바디의 스크롤 허용
+                document.body.classList.add('unlocked');
+                // 홈 버튼 스르륵 나타나기
+                homeBtn.classList.add('visible');
             }
 
-            if(userMessage) {
-                isTyping = true;
-                
-                // 유저 메시지 출력
-                const userMsgDiv = document.createElement('div');
-                userMsgDiv.className = 'message user-msg';
-                userMsgDiv.innerHTML = userMessage;
-                chatMessages.appendChild(userMsgDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // 타이핑 중 인디케이터
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'message bot-msg';
-                typingDiv.innerHTML = '<i class="fa-solid fa-ellipsis"></i> 입력 중...';
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // 봇 답변 출력
+            if (targetSectionId) {
                 setTimeout(() => {
-                    chatMessages.removeChild(typingDiv); 
-                    
-                    const botMsgDiv = document.createElement('div');
-                    botMsgDiv.className = 'message bot-msg';
-                    botMsgDiv.innerHTML = botResponse;
-                    chatMessages.appendChild(botMsgDiv);
-                    
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                    isTyping = false;
+                    const targetSection = document.getElementById(targetSectionId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        targetSection.classList.remove('highlight-target');
+                        void targetSection.offsetWidth; 
+                        targetSection.classList.add('highlight-target');
+                    }
                 }, 800); 
             }
         }
+
+        // 🌟 2. 커튼 다시 내리기 (타이틀 화면으로 복귀) 로직
+        function lockPortfolio() {
+            if (isUnlocked) {
+                isUnlocked = false;
+                // 홈 버튼 숨기기
+                homeBtn.classList.remove('visible');
+                // 커튼 다시 내리기
+                document.getElementById('hero').classList.remove('slide-up');
+                // 스크롤 막기
+                document.body.classList.remove('unlocked');
+                
+                // 커튼이 완전히 닫힌 후 본문의 스크롤 위치를 맨 위로 초기화
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 1000); 
+            }
+        }
+
+        // 마우스 휠을 아래로 굴리면 커튼 오픈
+        document.getElementById('hero').addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) unlockPortfolio();
+        });
+
+        // 모바일 환경에서 화면을 위로 스와이프하면 커튼 오픈
+        let touchStartY = 0;
+        document.getElementById('hero').addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; });
+        document.getElementById('hero').addEventListener('touchend', e => {
+            if (touchStartY - e.changedTouches[0].screenY > 50) unlockPortfolio();
+        });
+
+
+        // 3. 벤토 박스 스크롤 페이드인 애니메이션
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => { entry.target.classList.add('show'); }, index * 100); 
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.bento-card').forEach(card => observer.observe(card));
+
+            // 4. 챗봇 로직
+            const chatWindow = document.getElementById('chat-window');
+            const chatFab = document.getElementById('chat-fab');
+            const closeChatBtn = document.getElementById('close-chat-btn');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            const toggleChat = () => chatWindow.classList.toggle('open');
+            chatFab.addEventListener('click', toggleChat);
+            closeChatBtn.addEventListener('click', toggleChat);
+
+            const botData = {
+                intro: { req: "태훈님에 대해 짧게 소개해 줘!", res: "성실함을 무기로 끊임없이 배우고 성장하는 예비 개발자 윤태훈입니다. 한라대학교 컴퓨터공학과에서 AI와 백엔드에 매료되어 치열하게 연구하고 있습니다." },
+                tech: { req: "주로 다루는 기술은 뭐야?", res: "핵심 기술은 Java와 Python입니다. 이번 졸업 작품에서는 Vercel을 활용해 서버를 성공적으로 구축하고 AI 연동을 구현했습니다." },
+                project: { req: "'클로토의 실' 프로젝트가 궁금해.", res: "1년 장기 프로젝트로 진행 중인 'AI 타로 카드 앱'입니다. 저는 여기서 핵심인 서버 구축과 AI 모델 연동을 맡아, 기술로 사용자에게 즐거움을 주는 훈련을 하고 있습니다." },
+                teamwork: { req: "팀 프로젝트에서 협업 스타일은 어때?", res: "두 번의 실무 인턴십을 거치며 '원활한 소통'과 '책임감'을 배웠습니다. '클로토의 실' 팀에서도 제가 맡은 백엔드 및 AI 연동 파트의 진행 상황을 투명하게 공유하여 팀에 신뢰를 주는 조율자 역할을 하고 있습니다." },
+                intern: { req: "인턴십에서는 어떤 일을 했어?", res: "네오바이오텍 국내물류팀과 원주종합사회복지관 등에서 인턴 및 실습을 진행하며 실무 감각과 책임감을 길렀습니다. 현장 상황을 파악하고 다양한 직군과 협력하는 법을 배운 값진 시간이었습니다." },
+                goal: { req: "앞으로의 목표가 뭐야?", res: "단기적으로는 이번 학기에 '정보처리기사' 자격증을 취득해 전공 지식을 탄탄히 다지는 것입니다. 장기적으로는 시스템을 안정적으로 뒷받침하는 신뢰받는 백엔드 엔지니어가 되고 싶습니다!" },
+                contact: { req: "연락처를 알 수 있을까?", res: "언제든지 아래로 연락해 주세요!<br><br>📞 010-3339-4685<br>✉️ yunt3209@gmail.com" }
+            };
+
+            const tarotDeck = [
+                { icon: "🃏", name: "0. The Fool (바보)", meaning: "새로운 시작과 무한한 가능성을 의미합니다! 오늘 예상치 못한 에러를 만나더라도, 그것이 당신을 한 단계 성장시킬 훌륭한 배움의 기회가 될 것입니다." },
+                { icon: "🧙‍♂️", name: "I. The Magician (마법사)", meaning: "창조와 능력을 상징합니다. 당신의 코드에 마법 같은 일이 일어날 수 있습니다. 며칠째 풀리지 않던 로직이 오늘 순식간에 해결될지도 몰라요!" },
+                { icon: "🌟", name: "XVII. The Star (별)", meaning: "희망과 영감을 나타냅니다. 새로운 아이디어가 번뜩이는 하루! 기획 중인 프로젝트나 개발에 있어 주변을 놀라게 할 멋진 영감이 찾아올 것입니다." },
+                { icon: "☀️", name: "XIX. The Sun (태양)", meaning: "성공과 긍정의 에너지가 가득합니다. 마치 모든 테스트 코드가 단번에 통과(All Green)될 것 같은 맑은 날이네요. 막힘없는 쾌조의 타이핑이 예상됩니다!" },
+                { icon: "🎡", name: "X. Wheel of Fortune (운명의 수레바퀴)", meaning: "긍정적인 전환점과 행운을 뜻합니다. 우연한 기회로 완벽한 오픈소스 레퍼런스를 발견하거나, 개발에 도움을 줄 귀인을 만날 수 있습니다." }
+            ];
+
+            let isTyping = false;
+
+            document.querySelectorAll('.reply-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if (isTyping) return;
+                    
+                    const type = e.target.getAttribute('data-type');
+                    let reqMessage = "";
+                    let resMessage = "";
+
+                    if (type === 'tarot') {
+                        reqMessage = "오늘의 타로 카드 한 장 뽑아줘!";
+                        const randomCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+                        resMessage = `
+                            <div class="tarot-result">
+                                <span class="icon">${randomCard.icon}</span>
+                                <span class="name">${randomCard.name}</span>
+                            </div>
+                            <p>${randomCard.meaning}</p>
+                            <div class="tarot-promo">
+                                💡 제 졸업작품 <strong>'클로토의 실'</strong>에서는 AI가 여러분의 상황에 맞춰 훨씬 더 정교하고 깊은 타로 해석을 제공해 드립니다!
+                            </div>
+                        `;
+                    } else {
+                        const data = botData[type];
+                        if (!data) return;
+                        reqMessage = data.req;
+                        resMessage = data.res;
+                    }
+
+                    isTyping = true;
+                    
+                    const userMsgDiv = document.createElement('div');
+                    userMsgDiv.className = 'message user-msg';
+                    userMsgDiv.textContent = reqMessage;
+                    chatMessages.appendChild(userMsgDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    const typingDiv = document.createElement('div');
+                    typingDiv.className = 'message bot-msg';
+                    typingDiv.innerHTML = type === 'tarot' ? '<i class="fa-solid fa-ellipsis"></i> 카드를 섞는 중...' : '<i class="fa-solid fa-ellipsis"></i> 입력 중...';
+                    chatMessages.appendChild(typingDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    setTimeout(() => {
+                        chatMessages.removeChild(typingDiv); 
+                        const botMsgDiv = document.createElement('div');
+                        botMsgDiv.className = 'message bot-msg';
+                        botMsgDiv.innerHTML = resMessage;
+                        chatMessages.appendChild(botMsgDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        isTyping = false;
+                    }, type === 'tarot' ? 1200 : 800); 
+                });
+            });
+        });
     </script>
 </body>
 </html>
