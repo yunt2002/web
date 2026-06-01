@@ -6,6 +6,7 @@
     <meta name="description" content="예비 개발자 윤태훈의 포트폴리오 웹사이트입니다.">
     <title>윤태훈 | Software Engineer</title>
     
+    <!-- 웹 폰트 (Pretendard) & 아이콘 (FontAwesome) -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -94,30 +95,22 @@
         #toast-container {
             position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
             z-index: 10000; display: flex; flex-direction: column; gap: 10px;
-            pointer-events: none; /* 토스트 때문에 클릭 막히는 현상 방지 */
+            pointer-events: none; 
         }
         .toast {
             background: var(--card-bg); backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
-            border-left: 4px solid var(--accent);
+            border: 1px solid var(--card-border); border-left: 4px solid var(--accent);
             color: var(--text-main); font-family: 'Courier New', monospace; font-weight: bold;
             padding: 12px 20px; border-radius: 8px; box-shadow: var(--card-shadow);
             font-size: 0.9em; display: flex; align-items: center; gap: 10px;
-            /* 등장 시 튕기는 효과(cubic-bezier)와 2.6초 뒤 사라지는 효과 연계 */
             animation: slideInDown 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, fadeOut 0.4s ease 2.6s forwards;
         }
         .toast i { font-size: 1.2em; color: var(--accent); }
         .toast.success { border-left-color: #10b981; }
         .toast.success i { color: #10b981; }
 
-        @keyframes slideInDown {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-20px); opacity: 0; }
-        }
+        @keyframes slideInDown { 0% { transform: translateY(-50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-20px); opacity: 0; } }
 
         /* --- 인트로 화면 (커튼 효과) --- */
         #hero {
@@ -131,35 +124,19 @@
 
         /* ★ 좌측 상단 실시간 시스템 모니터링 위젯 (HUD 스타일) ★ */
         .sys-monitor {
-            position: absolute; 
-            top: 40px; left: 40px;
-            background: transparent; 
-            border: none; 
-            border-left: 3px solid var(--accent); 
-            padding: 5px 0 5px 15px; 
-            font-family: 'Courier New', monospace; width: 240px; text-align: left;
+            position: absolute; top: 40px; left: 40px;
+            background: transparent; border: none; border-left: 3px solid var(--accent); 
+            padding: 5px 0 5px 15px; font-family: 'Courier New', monospace; width: 240px; text-align: left;
             transition: transform 0.3s ease;
         }
         .sys-monitor:hover { transform: translateX(5px); } 
         
-        .sys-header {
-            font-size: 0.9em; color: var(--accent); font-weight: bold; margin-bottom: 15px;
-            display: flex; align-items: center; gap: 8px; letter-spacing: 1px;
-        }
-        .sys-stat {
-            font-size: 0.8em; color: var(--text-muted); margin-bottom: 10px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .sys-bar {
-            flex: 1; height: 3px; background: var(--inner-bg);
-            margin: 0 12px; border-radius: 2px; overflow: hidden; border: none; 
-        }
+        .sys-header { font-size: 0.9em; color: var(--accent); font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
+        .sys-stat { font-size: 0.8em; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .sys-bar { flex: 1; height: 3px; background: var(--inner-bg); margin: 0 12px; border-radius: 2px; overflow: hidden; border: none; }
         .sys-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.5s ease, background-color 0.5s ease; }
         .sys-val { width: 38px; text-align: right; font-weight: bold; color: var(--text-main); }
-        .sys-status {
-            margin-top: 15px; padding-top: 10px; 
-            font-size: 0.8em; color: var(--text-main); display: flex; align-items: center; gap: 8px;
-        }
+        .sys-status { margin-top: 15px; padding-top: 10px; font-size: 0.8em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
         .status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
         .status-dot.pulse { animation: pulseDot 1.5s infinite alternate; }
         @keyframes pulseDot { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 1; } }
@@ -208,10 +185,40 @@
         .contact-info i { color: var(--accent); }
         .section-title { font-size: 1.1em; color: var(--text-muted); margin-top: 0; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         .section-title i { color: var(--accent); }
+        
         .item-title { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .item-role { display: inline-block; background: var(--accent-glow); color: var(--accent); padding: 5px 12px; border-radius: 8px; font-size: 0.85em; margin-bottom: 12px; font-weight: 600; }
         .item-desc { color: var(--text-muted); margin-bottom: 15px; line-height: 1.6; }
         .item-date { font-size: 0.9em; color: var(--text-muted); font-family: 'Courier New', monospace; opacity: 0.6; }
+        
+        /* ★ 명확하고 직관적인 프로젝트 방문 버튼 CSS ★ */
+        .project-link-btn {
+            font-size: 0.55em; /* 제목 옆에 어울리게 크기 조절 */
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            vertical-align: middle; /* 제목과 수직 정렬 */
+            margin-left: 15px; /* 제목 텍스트와의 간격 */
+        }
+        .project-link-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        body.light-mode .project-link-btn:hover {
+            color: #fff;
+        }
         
         .tech-list { display: flex; flex-direction: column; gap: 15px; }
         .tech-item { display: flex; align-items: center; gap: 15px; background: var(--inner-bg); padding: 15px 20px; border-radius: 14px; transition: background 0.2s; }
@@ -231,19 +238,10 @@
         }
         .pwd-input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
         
-        .pwd-meter-bg { 
-            width: 100%; height: 6px; background: var(--card-border); 
-            border-radius: 3px; overflow: hidden; margin-bottom: 15px; 
-        }
-        .pwd-meter-fill { 
-            height: 100%; width: 0%; background: var(--card-border); 
-            transition: width 0.3s ease, background-color 0.3s ease; 
-        }
+        .pwd-meter-bg { width: 100%; height: 6px; background: var(--card-border); border-radius: 3px; overflow: hidden; margin-bottom: 15px; }
+        .pwd-meter-fill { height: 100%; width: 0%; background: var(--card-border); transition: width 0.3s ease, background-color 0.3s ease; }
         
-        .pwd-rules { 
-            list-style: none; padding: 0; margin: 0; font-size: 0.85em; 
-            color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; 
-        }
+        .pwd-rules { list-style: none; padding: 0; margin: 0; font-size: 0.85em; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; }
         .pwd-rules li { display: flex; align-items: center; gap: 10px; transition: color 0.3s ease; }
         .pwd-rules li i { width: 16px; text-align: center; }
         .pwd-rules li.valid { color: var(--pwd-strong); font-weight: bold; }
@@ -293,14 +291,18 @@
 </head>
 <body>
 
+    <!-- 🔔 토스트 알림 컨테이너 -->
     <div id="toast-container"></div>
 
+    <!-- 🌓 테마 토글 버튼 -->
     <button id="theme-toggle" aria-label="테마 변경">
         <i class="fa-solid fa-moon"></i>
     </button>
 
+    <!-- 🌟 인트로 화면 -->
     <header id="hero">
         
+        <!-- ★ 실시간 시스템 모니터링 (HUD 스타일) ★ -->
         <div class="sys-monitor" id="sys-monitor">
             <div class="sys-header"><i class="fa-solid fa-server"></i> SYS_MONITOR</div>
             
@@ -335,6 +337,7 @@
         </nav>
     </header>
 
+    <!-- 메인 콘텐츠 -->
     <main class="container" id="main-content">
         <article class="bento-card card-profile" id="section-profile">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="윤태훈" class="profile-img">
@@ -359,7 +362,15 @@
 
         <section class="bento-card card-project" id="section-project">
             <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Main Project</h2>
-            <div class="item-title">클로토의 실</div>
+            
+            <!-- ★ 직관적인 버튼 형태로 변경된 프로젝트 타이틀 ★ -->
+            <div class="item-title" style="display: flex; align-items: center;">
+                <span>클로토의 실</span>
+                <a href="https://clothos-thread.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                    <i class="fa-solid fa-globe"></i> 사이트 방문
+                </a>
+            </div>
+            
             <span class="item-role">Backend &amp; AI Integration</span>
             <p class="item-desc">컴퓨터공학과 1년 장기 졸업 작품입니다. AI를 활용한 맞춤형 타로 해석 플랫폼의 서버 아키텍처와 모델 연동을 담당하고 있습니다.</p>
             <span class="item-date">// 2025.12 ~ 2026.02 (Expected)</span>
@@ -382,6 +393,7 @@
             </div>
         </section>
 
+        <!-- 🛡️ 비밀번호 유효성 검사 벤토 카드 -->
         <section class="bento-card card-pwd" id="section-pwd">
             <h2 class="section-title" style="justify-content: center; margin-bottom: 20px;">
                 <i class="fa-solid fa-shield-halved"></i> Form Validation
@@ -440,7 +452,7 @@
     </aside>
 
     <script>
-        /* --- ★ 1. 전역 토스트 알림 (Toast) 함수 ★ --- */
+        /* --- 1. 전역 토스트 알림 (Toast) 함수 --- */
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -452,7 +464,6 @@
             toast.innerHTML = `<i class="${iconClass}"></i> <span>${message}</span>`;
             container.appendChild(toast);
             
-            // 3초(3000ms) 뒤에 DOM에서 완전히 삭제하여 메모리 누수 방지
             setTimeout(() => {
                 if (container.contains(toast)) {
                     container.removeChild(toast);
@@ -460,7 +471,7 @@
             }, 3000);
         }
 
-        /* --- 2. 테마 토글 로직 (토스트 연동) --- */
+        /* --- 2. 테마 토글 로직 --- */
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
         
@@ -553,12 +564,12 @@
             document.querySelectorAll('.bento-card').forEach(card => observer.observe(card));
         });
 
-        /* --- ★ 5. 폼 유효성 검사 (토스트 알림 연동) ★ --- */
+        /* --- 5. 폼 유효성 검사 --- */
         const pwdInput = document.getElementById('pwd-input');
         const meterFill = document.getElementById('pwd-meter');
         const ruleElements = { len: document.getElementById('rule-len'), upper: document.getElementById('rule-upper'), num: document.getElementById('rule-num'), spec: document.getElementById('rule-spec') };
         
-        let pwdSuccessNotified = false; // 중복 알림 방지용 플래그
+        let pwdSuccessNotified = false; 
 
         if (pwdInput) {
             pwdInput.addEventListener('input', (e) => {
@@ -585,17 +596,16 @@
                     meterFill.style.backgroundColor = style.getPropertyValue('--pwd-strong').trim(); 
                 }
 
-                // 모든 조건을 만족했을 때 딱 한 번만 토스트 띄우기
                 if (score === 100 && !pwdSuccessNotified) {
                     showToast('강력한 보안 수준의 비밀번호입니다!', 'success');
                     pwdSuccessNotified = true;
                 } else if (score < 100) {
-                    pwdSuccessNotified = false; // 점수가 깎이면 플래그 초기화 (다시 100점 될 때 알림 띄우기 위해)
+                    pwdSuccessNotified = false; 
                 }
             });
         }
 
-        /* --- ★ 6. 챗봇 로직 (토스트 연동) ★ --- */
+        /* --- 6. 챗봇 로직 --- */
         const chatWindow = document.getElementById('chat-window');
         const chatFab = document.getElementById('chat-fab');
         const closeChatBtn = document.getElementById('close-chat-btn');
@@ -677,7 +687,6 @@
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                     isTyping = false;
                     
-                    // 타로 카드를 성공적으로 뽑았을 때 토스트 알림 띄우기
                     if(type === 'tarot') {
                         showToast('새로운 타로 카드가 해석되었습니다.', 'success');
                     }
